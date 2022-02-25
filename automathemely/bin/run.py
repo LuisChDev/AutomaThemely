@@ -5,7 +5,8 @@ import pickle as pkl
 import shutil
 import sys
 from datetime import datetime
-from os import chdir, getuid
+from os import chdir, getuid, chmod
+from stat import S_IREAD, S_IWRITE, S_IRGRP, S_IWGRP, S_IROTH, S_IWOTH
 from pathlib import Path
 
 import pytz
@@ -41,6 +42,8 @@ def main():
     #   Test for settings file and if it doesn't exist copy it from defaults
     if not Path(get_local('user_settings.json')).is_file():
         shutil.copy2(get_resource('default_user_settings.json'), get_local('user_settings.json'))
+        # needed because of read-only permissions on the nix store
+        chmod(get_local('user_settings.json'), S_IREAD | S_IWRITE | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)
         # By default notifications are enabled
         from automathemely import notifier_handler
         logging.getLogger().addHandler(notifier_handler)

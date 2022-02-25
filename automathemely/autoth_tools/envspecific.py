@@ -10,17 +10,20 @@ logger = logging.getLogger(__name__)
 HOME = Path.home()
 PATH_CONSTANTS = {
     'general-themes': (
-        '/usr/share/themes/',
+        '/run/current-system/sw/share/themes/',
+        str(HOME.joinpath('.nix-profile/share/themes/')),
         str(HOME.joinpath('.local/share/themes/')),
         str(HOME.joinpath('.themes/'))
     ),
     'icons-themes': (
-        '/usr/share/icons/',
+        '/run/current-system/sw/share/icons/',
+        str(HOME.joinpath('.nix-profile/share/icons/')),
         str(HOME.joinpath('.local/share/icons/')),
         str(HOME.joinpath('.icons/'))
     ),
     'lookandfeel-themes': (
-        '/usr/share/plasma/look-and-feel/',
+        '/run/current-system/sw/share/plasma/look-and-feel/',
+        str(HOME.joinpath('.nix-profile/share/plasma/look-and-feel')),
         str(HOME.joinpath('.local/share/plasma/look-and-feel/'))
     ),
     'shell-user-extensions': str(HOME.joinpath('.local/share/gnome-shell/extensions/')),
